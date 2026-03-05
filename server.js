@@ -18,4 +18,5 @@ mongoose.connect(process.env.MONGO_URI)
 import taskRoutes from "./routes/taskRoutes.js";
 app.use("/api/tasks", taskRoutes);
 
-app.listen(5000, () => console.log("Server running on port 5000"));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
