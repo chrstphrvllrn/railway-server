@@ -6,11 +6,18 @@ import dotenv from "dotenv";
 dotenv.config();
 const app = express();
 
-const corsOptions = {
-  origin: process.env.FRONTEND_URL
-};
+// CORS setup
+const allowedOrigins = process.env.NODE_ENV === 'production'
+  ? [process.env.PROD_FRONTEND_URL] // actual site
+  : [process.env.DEV_FRONTEND_URL]; // local/dev
 
-app.use(cors(corsOptions));
+app.use(cors({
+  origin: allowedOrigins,
+  // credentials: true, 
+  // if you use cookies or auth headers
+}));
+
+
 app.use(express.json());
 
 // MongoDB connection
